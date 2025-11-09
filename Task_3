@@ -1,0 +1,78 @@
+namespace ConsoleApp53
+{
+    interface Price
+    {
+        decimal GetPrice();
+    }
+
+    interface Warranty
+    {
+        int GetWarranty();
+    }
+
+    // Класс телефона, реализующий оба интерфейса
+    class Phone : Price, Warranty
+    {
+        private decimal price;
+        private int warranty;
+
+        public Phone(decimal price, int warrantyMonths)
+        {
+            this.price = price;
+            this.warranty = warrantyMonths;
+        }
+
+        public decimal GetPrice()
+        {
+            return price;
+        }
+
+        public int GetWarranty()
+        {
+            return warranty;
+        }
+    }
+
+    // Класс ноутбука (реализует интерфейс для получения цены)
+     class Laptop : Price
+    {
+        private decimal price;
+
+        public Laptop(decimal price)
+        {
+            this.price = price;
+        }
+
+        public decimal GetPrice()
+        {
+            return price;
+        }
+    }
+
+     class Program
+    {
+        public static void Main()
+        {
+            List<Price> products = new List<Price>
+        {
+            new Phone(500m, 24), // Телефон с ценой 500 и гарантией 24 месяца
+            new Laptop(1000m),   // Ноутбук с ценой 1000
+            new Phone(300m, 12)   // Еще один телефон с ценой 300 и гарантией 12 месяцев
+        };
+
+            decimal totalCost = 0;
+
+            foreach (var product in products)
+            {
+                totalCost += product.GetPrice();
+
+                if (product is Warranty warrantyProduct)
+                {
+                    Console.WriteLine($"Гарантия: {warrantyProduct.GetWarranty()} месяцев");
+                }
+            }
+
+            Console.WriteLine($"Общая стоимость: {totalCost} единиц.");
+        }
+    }
+}
