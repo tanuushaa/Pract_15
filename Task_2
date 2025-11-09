@@ -1,0 +1,98 @@
+namespace ConsoleApp59
+{
+    interface Turnable
+    {
+        bool IsOn { get; }
+        void TurnOn();
+        void TurnOff();
+    }
+
+    interface LevelAdjustable
+    {
+        int Level { get; }
+        void SetLevel(int level);
+    }
+    // класс для лампы
+   class Lamp : Turnable, LevelAdjustable
+    {
+        private bool isOn;
+        private int level;
+
+        public bool IsOn => isOn;
+
+        public int Level => level;
+
+        public Lamp()
+        {
+            isOn = false;
+            level = 0;
+        }
+
+        public void TurnOn()
+        {
+            isOn = true;
+            level = 100;
+            Console.WriteLine("Лампа включена, яркость: 100%");
+        }
+
+        public void TurnOff()
+        {
+            isOn = false;
+            level = 0;
+            Console.WriteLine("Лампа выключена");
+        }
+
+        public void SetLevel(int level)
+        {
+            level = level < 0 ? 0 : level > 100 ? 100 : level;
+            Console.WriteLine($"Яркость лампы установлена на: {level}%");
+        }
+
+        public void ShowState()
+        {
+            Console.WriteLine($"Состояние лампы: {(isOn ? "Включена" : "Выключена")}, уровень: {level}%");
+        }
+    }
+    // класс для вентилятора
+     class Fan : Turnable
+    {
+        public bool IsOn { get; private set; }
+
+        public void TurnOn()
+        {
+            IsOn = true;
+            Console.WriteLine("Вентилятор включен");
+        }
+
+        public void TurnOff()
+        {
+            IsOn = false;
+            Console.WriteLine("Вентилятор выключен");
+        }
+
+        public void ShowState()
+        {
+            Console.WriteLine($"Состояние вентилятора: {(IsOn ? "Включён" : "Выключен")}");
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Lamp lamp = new Lamp();
+            Fan fan = new Fan();
+
+            lamp.TurnOn();
+            lamp.SetLevel(50);
+            lamp.ShowState();
+            lamp.TurnOff();
+            lamp.ShowState();
+
+            fan.TurnOn();
+            fan.ShowState();
+            fan.TurnOff();
+            fan.ShowState();
+        }
+    }
+}
