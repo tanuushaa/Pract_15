@@ -1,0 +1,54 @@
+namespace ConsoleApp58
+{
+    // интерфейсы
+    interface Worker
+    {
+        void work();
+
+    }
+    interface Charger
+    {
+        void charger();
+    }
+    // класс робота ( реализует 2 интерфейса)
+    public class Robot : Worker, Charger
+    {
+        public string Name { get; set; }
+        public int EnergyLevel { get; set; }
+        public Robot(string name)
+        {
+            Name = name;
+            EnergyLevel = 100;
+        }
+        public void work()
+        {
+            if (EnergyLevel > 0)
+            {
+                EnergyLevel = Math.Max(0, EnergyLevel - 20);
+                Console.WriteLine($"{Name} работает. Текущая энергия: {EnergyLevel}");
+
+            }
+            else
+            {
+                Console.WriteLine($"{Name} не может работать - разряжен");
+            }
+        }
+        public void  charger()
+        {
+            EnergyLevel = 100;
+            Console.WriteLine($"{Name} полностью заряжен");
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            Robot robot = new Robot("Робот");
+            robot.work();
+            robot.work();
+            robot.charger();
+            robot.work();
+        }
+
+    }
+}
