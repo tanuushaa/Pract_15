@@ -1,0 +1,51 @@
+namespace ConsoleApp54
+{
+    // интерфейсы
+    interface Atack
+    {
+        void atack();
+    }
+
+    interface Treatment
+    {
+        void treatment();
+    }
+    // класс для воина (умеет атаковать)
+    class Warrior : Atack
+    {
+        public void atack()
+        {
+            Console.WriteLine("Воин атакует!");
+        }
+    }
+    // класс для мага ( умеет атаковать,лечить)
+    class Mage : Atack, Treatment
+    {
+        public void atack()
+        {
+            Console.WriteLine("Маг атакует!");
+        }
+
+        public void treatment()
+        {
+            Console.WriteLine("Маг лечит!");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Atack warrior = new Warrior();
+            Atack mage = new Mage();
+            Treatment mageTreatment = (Treatment)mage;
+            // вывод
+            Console.WriteLine("Те, кто умеют атаковать: ");
+            warrior.atack();
+            mage.atack();
+            Console.WriteLine();
+            Console.WriteLine("Те, кто умеют лечить: ");
+            mageTreatment.treatment();
+        }
+    }
+}
